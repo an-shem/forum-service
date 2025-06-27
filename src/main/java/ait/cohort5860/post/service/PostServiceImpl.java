@@ -105,24 +105,11 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Iterable<PostDto> findPostsByTags(List<String> tags) {
-        System.out.println("Start");
-        Set<Tag> tagsSet = tags.stream()
-                .map(Tag::new)
-                .collect(Collectors.toSet());
-        System.out.println("Set<Tag> >> " + tagsSet);
-        List<Post> postsByTags = postRepository.findPostsByTagsIn(tags);
-//                .stream()
-//                .map(p -> {
-//                    System.out.println("post " + p);
-//                    return modelMapper.map(p, PostDto.class);
-//                })
-//                .collect(Collectors.toList());
-        System.out.println("postsByTags >> " + postsByTags);
-        return null;
+               return null;
     }
 
     @Override
     public Iterable<PostDto> findPostsByPeriod(LocalDate dateFrom, LocalDate dateTo) {
-        return postRepository.findPostsByDateCreatedBetween(dateFrom, dateTo);
+        return null;
     }
 }

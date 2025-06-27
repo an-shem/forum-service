@@ -11,9 +11,5 @@ import java.util.List;
 import java.util.Set;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
-    List<Post> findPostsByAuthor(String author);
+    List<Post> findPostsByAuthor(String author);}
 
-    List<Post> findPostsByTagsIn(List<String> tags);
-
-    List<PostDto> findPostsByDateCreatedBetween(LocalDate dateFrom, LocalDate dateTo);
-}

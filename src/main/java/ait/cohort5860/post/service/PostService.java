@@ -27,22 +27,4 @@ public interface PostService {
 
     Iterable<PostDto> findPostsByPeriod(LocalDate dateFrom, LocalDate dateTo);
 
-
-//    PostDto addPost(NewPostDto newPostDto);
-//
-//    PostDto findPostById(long id);
-//
-//    void addLike();
-//
-//    List<PostDto> findPostsByAuthor();
-//
-//    PostDto addComment(CommentDto commentDto);
-//
-//    PostDto removePost();
-//
-//    List<PostDto> findPostsByTags(String tags);
-//
-//    List<PostDto> findPostsByPeriod(String dateFrom, String dateTo);
-//
-//    PostDto updatePost(PostDto postDto);
 }

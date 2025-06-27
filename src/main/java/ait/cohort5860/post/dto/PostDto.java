@@ -2,6 +2,7 @@ package ait.cohort5860.post.dto;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -14,11 +15,10 @@ public class PostDto {
     private String title;
     private String content;
     private String author;
-    private String dateCreated;
+    private LocalDateTime dateCreated;
     @Singular
     private Set<String> tags;
-    private Long likes;
+    private Integer likes;
     @Singular
     private List<CommentDto> comments;
 }
-

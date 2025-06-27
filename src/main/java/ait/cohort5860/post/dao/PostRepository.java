@@ -1,15 +1,20 @@
 package ait.cohort5860.post.dao;
 
-import ait.cohort5860.post.dto.PostDto;
 import ait.cohort5860.post.modal.Post;
-import ait.cohort5860.post.modal.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
-import java.util.Collection;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Stream;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
-    List<Post> findPostsByAuthor(String author);}
+    //    my_variant
+//    List<Post> findPostsByAuthor(String author);
+    Stream<Post> findByAuthorIgnoreCase(String author);
+
+    Stream<Post> findDistinctByTagsNameInIgnoreCase(List<String> tags);
+
+    Stream<Post> findByDateCreatedBetween(LocalDateTime from, LocalDateTime to);
+}
 

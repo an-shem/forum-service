@@ -1,4 +1,4 @@
-package ait.cohort5860.post.modal;
+package ait.cohort5860.post.model;
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -12,7 +12,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
 @Getter
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -21,18 +20,30 @@ import java.util.Set;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
     @Setter
+    @Column(name = "title")
     private String title;
     @Setter
+    @Column(name = "content", columnDefinition = "TEXT")
     private String content;
     @Setter
+    @Column(name = "author")
     private String author;
+    @Setter
+    @Column(name = "date_created")
     private LocalDateTime dateCreated = LocalDateTime.now();
-    @ManyToMany
-    private Set<Tag> tags = new HashSet<>();
+    @Column(name = "likes")
     private int likes;
-    @OneToMany(mappedBy = "post")
+    @ManyToMany
+    @JoinTable(
+            name = "posts_tags",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_name")
+    )
+    private Set<Tag> tags = new HashSet<>();
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
     public Post(String title, String content, String author) {
@@ -52,7 +63,7 @@ public class Post {
         comments.add(comment);
     }
 
-    public void addLikes() {
+    public void addLike() {
         likes++;
     }
 

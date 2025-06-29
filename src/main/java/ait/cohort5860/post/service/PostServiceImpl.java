@@ -7,9 +7,9 @@ import ait.cohort5860.post.dto.NewCommentDto;
 import ait.cohort5860.post.dto.NewPostDto;
 import ait.cohort5860.post.dto.PostDto;
 import ait.cohort5860.post.dto.exceptions.PostNotFoundException;
-import ait.cohort5860.post.modal.Comment;
-import ait.cohort5860.post.modal.Post;
-import ait.cohort5860.post.modal.Tag;
+import ait.cohort5860.post.model.Comment;
+import ait.cohort5860.post.model.Post;
+import ait.cohort5860.post.model.Tag;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -18,10 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -49,7 +47,7 @@ public class PostServiceImpl implements PostService {
     @Transactional
     public void addLike(Long id) {
         Post post = postRepository.findById(id).orElseThrow(PostNotFoundException::new);
-        post.addLikes();
+        post.addLike();
     }
 
     @Override

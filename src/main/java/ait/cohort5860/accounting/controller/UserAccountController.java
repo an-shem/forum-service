@@ -23,9 +23,8 @@ public class UserAccountController {
     }
 
     @PostMapping("/login")
-    public UserDto login() {
-        // TODO
-        return null;
+    public UserDto login(Principal principal) {
+        return userAccountService.getUser(principal.getName());
     }
 
     @DeleteMapping("/user/{login}")
@@ -50,8 +49,8 @@ public class UserAccountController {
 
     @PatchMapping("/password")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void changePassword() {
-        // TODO
+    public void changePassword(Principal principal, @RequestHeader("X-Password") String newPassword) {
+        userAccountService.changePassword(principal.getName(), newPassword);
     }
 
     @GetMapping("/user/{login}")

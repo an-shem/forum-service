@@ -1,18 +1,17 @@
 package ait.cohort5860.accounting.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.util.EnumSet;
+import java.util.Set;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class UserDto {
     private String login;
     private String firstName;
     private String lastName;
-    private EnumSet<Roles> roles;
-
+    @Singular
+    private Set<String> roles;
 }

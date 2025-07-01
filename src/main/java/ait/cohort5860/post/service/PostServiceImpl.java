@@ -90,7 +90,6 @@ public class PostServiceImpl implements PostService {
         Comment comment = new Comment(author, newCommentDto.getMessage(), post);
         commentRepository.save(comment);
         post.addComment(comment);
-//        postRepository.save(post);
         return modelMapper.map(post, PostDto.class);
     }
 
@@ -100,10 +99,6 @@ public class PostServiceImpl implements PostService {
         return postRepository.findByAuthorIgnoreCase(author)
                 .map(p -> modelMapper.map(p, PostDto.class))
                 .toList();
-
-//        my_variant
-//        List<Post> posts = postRepository.findPostsByAuthor(author);
-//        return posts.stream().map(p -> modelMapper.map(p, PostDto.class)).collect(Collectors.toList());
     }
 
     @Override

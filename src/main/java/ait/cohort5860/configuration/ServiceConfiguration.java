@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.modelmapper.config.Configuration.AccessLevel;
 
 @Configuration
-public class ServiceConfiguration {
+public class  ServiceConfiguration {
 
     @Bean
     ModelMapper getModelMapper() {

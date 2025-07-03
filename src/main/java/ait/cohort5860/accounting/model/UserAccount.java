@@ -11,7 +11,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@EqualsAndHashCode(of="login")
+@EqualsAndHashCode(of = "login")
 @Document(collection = "users")
 public class UserAccount {
     @Id
@@ -24,7 +24,6 @@ public class UserAccount {
     private String lastName;
     @Singular
     private Set<Role> roles = new HashSet<>();
-
 
     public boolean addRole(String role) {
         return roles.add(Role.valueOf(role.toUpperCase()));

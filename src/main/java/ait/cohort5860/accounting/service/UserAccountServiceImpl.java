@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserAccoutnSeviceImpl implements UserAccountService, CommandLineRunner {
+public class UserAccountServiceImpl implements UserAccountService, CommandLineRunner {
     private final UserAccountRepository userAccountRepository;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
@@ -87,7 +87,7 @@ public class UserAccoutnSeviceImpl implements UserAccountService, CommandLineRun
 
     @Override
     public void run(String... args) throws Exception {
-        if(!userAccountRepository.existsById("admin")) {
+        if (!userAccountRepository.existsById("admin")) {
             UserAccount admin = UserAccount.builder()
                     .login("admin")
                     .password(passwordEncoder.encode("admin"))

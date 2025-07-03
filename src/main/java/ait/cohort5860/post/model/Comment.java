@@ -31,10 +31,9 @@ public class Comment {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    public Comment(String username, String message, Post post) {
-        this.username = username;
+    public Comment(String user, String message) {
+        this.username = user;
         this.message = message;
-        this.post = post;
     }
 
     public void addLike() {

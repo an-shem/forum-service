@@ -6,13 +6,12 @@ import ait.cohort5860.post.dao.TagRepository;
 import ait.cohort5860.post.dto.NewCommentDto;
 import ait.cohort5860.post.dto.NewPostDto;
 import ait.cohort5860.post.dto.PostDto;
-import ait.cohort5860.post.dto.exceptions.PostNotFoundException;
+import ait.cohort5860.post.dto.exception.PostNotFoundException;
 import ait.cohort5860.post.model.Comment;
 import ait.cohort5860.post.model.Post;
 import ait.cohort5860.post.model.Tag;
 import ait.cohort5860.post.service.logging.PostLogger;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,15 +32,14 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    @PostLogger
     public PostDto addNewPost(String author, NewPostDto newPostDto) {
         Post post = new Post(newPostDto.getTitle(), newPostDto.getContent(), author);
-        //Handle tags
+
+        // Handle tags
         return getPostDto(newPostDto, post);
     }
 
     @Override
-    @PostLogger
     public PostDto findPostById(Long id) {
         Post post = postRepository.findById(id).orElseThrow(PostNotFoundException::new);
         return modelMapper.map(post, PostDto.class);
@@ -60,11 +58,13 @@ public class PostServiceImpl implements PostService {
     @PostLogger
     public PostDto updatePost(Long id, NewPostDto newPostDto) {
         Post post = postRepository.findById(id).orElseThrow(PostNotFoundException::new);
-        if (newPostDto.getTitle() != null) {
-            post.setTitle(newPostDto.getTitle());
+        String content = newPostDto.getContent();
+        if (content != null) {
+            post.setContent(content);
         }
-        if (newPostDto.getContent() != null) {
-            post.setContent(newPostDto.getContent());
+        String title = newPostDto.getTitle();
+        if (title != null) {
+            post.setTitle(title);
         }
         return getPostDto(newPostDto, post);
     }
@@ -73,11 +73,12 @@ public class PostServiceImpl implements PostService {
         Set<String> tags = newPostDto.getTags();
         if (tags != null) {
             for (String tagName : tags) {
-                Tag tag = tagRepository.findById(tagName).orElseGet(() -> tagRepository.save(new Tag(tagName)));
+                Tag tag = tagRepository.findById(tagName)
+                        .orElseGet(() -> tagRepository.save(new Tag(tagName)));
                 post.addTag(tag);
             }
         }
-        postRepository.save(post);
+        post = postRepository.save(post);
         return modelMapper.map(post, PostDto.class);
     }
 
@@ -93,9 +94,9 @@ public class PostServiceImpl implements PostService {
     @Transactional
     public PostDto addComment(Long id, String author, NewCommentDto newCommentDto) {
         Post post = postRepository.findById(id).orElseThrow(PostNotFoundException::new);
-        Comment comment = new Comment(author, newCommentDto.getMessage(), post);
+        Comment comment = new Comment(author, newCommentDto.getMessage());
+        comment.setPost(post);
         commentRepository.save(comment);
-        post.addComment(comment);
         return modelMapper.map(post, PostDto.class);
     }
 

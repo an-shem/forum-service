@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface PostService {
-
     PostDto addNewPost(String author, NewPostDto newPostDto);
 
     PostDto findPostById(Long id);
@@ -26,5 +25,4 @@ public interface PostService {
     Iterable<PostDto> findPostsByTags(List<String> tags);
 
     Iterable<PostDto> findPostsByPeriod(LocalDate dateFrom, LocalDate dateTo);
-
 }

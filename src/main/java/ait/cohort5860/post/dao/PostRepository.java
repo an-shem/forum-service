@@ -8,12 +8,9 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
-    //    my_variant
-//    List<Post> findPostsByAuthor(String author);
     Stream<Post> findByAuthorIgnoreCase(String author);
 
     Stream<Post> findDistinctByTagsNameInIgnoreCase(List<String> tags);
 
     Stream<Post> findByDateCreatedBetween(LocalDateTime from, LocalDateTime to);
 }
-

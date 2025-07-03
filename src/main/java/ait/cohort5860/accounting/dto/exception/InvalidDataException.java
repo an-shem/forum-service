@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 @NoArgsConstructor
-public class InvalidDataException extends RuntimeException{
-    public InvalidDataException(String message){
+public class InvalidDataException extends RuntimeException {
+    public InvalidDataException(String message) {
         super(message);
     }
 }

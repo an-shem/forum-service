@@ -4,6 +4,8 @@ import ait.cohort5860.post.dto.NewCommentDto;
 import ait.cohort5860.post.dto.NewPostDto;
 import ait.cohort5860.post.dto.PostDto;
 import ait.cohort5860.post.service.PostService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +21,7 @@ public class PostController {
 
     @PostMapping("/post/{author}")
     @ResponseStatus(HttpStatus.CREATED)
-    public PostDto addNewPost(@PathVariable String author, @RequestBody NewPostDto newPostDto) {
+    public PostDto addNewPost(@PathVariable String author, @RequestBody @Valid NewPostDto newPostDto) {
         return postService.addNewPost(author, newPostDto);
     }
 
@@ -45,7 +47,7 @@ public class PostController {
     }
 
     @PatchMapping("/post/{id}/comment/{author}")
-    public PostDto addComment(@PathVariable Long id, @PathVariable String author, @RequestBody NewCommentDto newCommentDto) {
+    public PostDto addComment(@PathVariable Long id, @PathVariable String author, @RequestBody @Valid NewCommentDto newCommentDto) {
         return postService.addComment(id, author, newCommentDto);
     }
 
@@ -60,7 +62,7 @@ public class PostController {
     }
 
     @GetMapping("/posts/period")
-    public Iterable<PostDto> findPostsByPeriod(@RequestParam("dateFrom") LocalDate from, @RequestParam("dateTo") LocalDate to) {
+    public Iterable<PostDto> findPostsByPeriod(@RequestParam("dateFrom") @NotNull(message = "Date 'from' required") LocalDate from, @RequestParam("dateTo") @NotNull(message = "Date 'to' required") LocalDate to) {
         return postService.findPostsByPeriod(from, to);
     }
 }

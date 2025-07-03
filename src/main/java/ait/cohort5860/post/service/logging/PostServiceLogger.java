@@ -1,6 +1,5 @@
 package ait.cohort5860.post.service.logging;
 
-import ait.cohort5860.post.dto.PostDto;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -31,7 +30,7 @@ public class PostServiceLogger {
 
     @AfterReturning("annotatePostLogger()")
     public void logAnnotatePostLogger(JoinPoint joinPoint) {
-        log.info("Annotate by PostLogger method: {}, done", joinPoint.getSignature().getName());
+        log.info("Annotated by PostLogger method: {}, done", joinPoint.getSignature().getName());
     }
 
     @Around("bulkFindPostsLogger()")
